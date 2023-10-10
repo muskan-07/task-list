@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <form id="task-form">
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul id="task-list"></ul>
+
+    <script>
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+    </script>
+    <script>
+    // Fetch and display tasks on page load
+    $(document).ready(function() {
+        fetchTasks();
+    });
+
+    // Function to fetch and display tasks
+    function fetchTasks() {
+        $.get('/api/tasks/', function(data) {
+            const taskList = $('#task-list');
+            taskList.empty();
+            data.forEach(function(task) {
+                taskList.append(`<li>${task.title} - ${task.description} (${task.status}) <button onclick="deleteTask(${task.id})">Delete</button></li>`);
+            });
+        });
+    }
+
+    // Function to create a new task
+    $('#task-form').submit(function(event) {
+        event.preventDefault();
+        const title = $('#title').val();
+        const description = $('#description').val();
+
+        $.post('/api/tasks/', { title, description }, function() {
+            $('#title').val('');
+            $('#description').val('');
+            fetchTasks();
+        });
+    });
+
+    // Function to delete a task
+    function deleteTask(taskId) {
+        $.ajax({
+            url: `/api/tasks/${taskId}/`,
+            type: 'DELETE',
+            success: function() {
+                fetchTasks();
+            }
+        });
+    }
+</script>
+</body>
+</html>
