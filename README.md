@@ -1,20 +1,7 @@
-# task-listCertainly! Here's an example of a README file for your Django task manager application:
-
----
-
 # Task Manager Application
 
 This is a simple Django-based Task Manager application that allows users to create, read, update, and delete tasks. It includes a RESTful API for managing tasks and a basic HTML frontend for interacting with the API.
 
-## Table of Contents
-
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [API Endpoints](#api-endpoints)
-- [Frontend](#frontend)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
